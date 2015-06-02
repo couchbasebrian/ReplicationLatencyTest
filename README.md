@@ -6,7 +6,11 @@ Given a source cluster and bucket and a destination cluster and bucket, this pro
 
 It will then start polling the target bucket.  It will measure the amount of time until the document is available on the target bucket.  Then as a follow-up, it will continue to poll until the document expires and is no longer available.
 
-Finally it outputs both of these values and exits.
+After that it re-creates the original document in the source bucket, and does an upsert, and polls to see how long it takes for the change to appear in the target bucket ( by monitoring CAS value ).
+
+Next, the program removes the document from the source bucket and observes how long it takes to be removed from the target bucket.
+
+Finally it outputs all of the measured time values and exits.
 
 Sample output
 
