@@ -1,6 +1,6 @@
 # ReplicationLatencyTest
 
-This program was developed using Java 1.8 and Couchbase Java SDK 2.1.3.
+This program was developed using Java 1.8 and [Couchbase Java SDK 2.1.3](http://packages.couchbase.com/clients/java/2.1.3/Couchbase-Java-Client-2.1.3.zip).
 
 Given a source cluster and bucket and a destination cluster and bucket, this program will insert an expiring test document into the source cluster and bucket.
 
