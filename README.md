@@ -12,23 +12,33 @@ Next, the program removes the document from the source bucket and observes how l
 
 Finally it outputs all of the measured time values and exits.
 
-Sample output
+Sample output ( from continuous mode )
 
-    === Replication Latency Test ===
-    === Finished opening source clusters and buckets ===
-    === Finished opening target clusters and buckets ===
-    === Finished inserting document ===
-    === Waiting for doc to appear in target bucket... ===
-    === Waiting for doc to disappear from target bucket... (expecting about 3 seconds) ===
-    === Waiting for doc to appear in target bucket again... ===
-    === Finished upserting document with key: testDocument2 cas: 0 ===
-    === Retrieved the upserted doc and the cas is: 65687996628451 ===
+    === Ready to perform tests - document id is testDocument997 ===
+    === Finished inserting document into source bucket default ===
+    === Waiting for doc to appear in target bucket default... ===
+    === Number of get iterations required: 6 ===
+    === Waiting for doc to disappear from target bucket... (expecting approximately 10 seconds based on TTL) ===
+    === Iterations required: 30601 ===
+    === Doc has disappeared from target bucket.  Inserting document into source bucket again ( assuming it has expired ) ===
+    === Iterations required: 0 ===
+    === Reinsert into source bucket successful (took 10 ms).  Waiting for doc to appear in target bucket again... ===
+    === Iterations required: 0 ===
+    === The document appeared in the target bucket after being reinserted into the source bucket. ===
+    === Now doing an upsert on the document in the source bucket. ===
+    === Finished upserting document with key: testDocument997 CAS: 0 timeTaken: 2 ms ===
+    === Retrieved the upserted doc from the source bucket and the CAS is: 45121999447122 ===
     === Waiting for doc to change in target bucket... ===
-    xxxxxxxxxxxxxxxxxxxxx
-    === Final Results ===
-    Time taken to appear in target bucket:                       11 ms
-    Time taken to expire and disappear from target bucket:       10797 ms
-    Time taken to reappear in target after recreating in source: 9 ms
-    Time for upsert to propagate to target bucket:               12 ms
-    Time taken for remove to take effect on target bucket:       5 ms
-    === Goodbye. ===
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    === Iterations required: 31 ===
+    === Detected the CAS change on the target bucket.  Doing a remove on the source bucket and polling target bucket... ===
+    === Iterations required: 14 ===
+    === The document has disappeared from the target bucket. ===
+    === Final Results: 2016-02-12T12:16:15.161 ===
+    Time taken to appear in target bucket:                       14 ms
+    Time taken to expire and disappear from target bucket:       10526 ms after appearing in target
+    Time taken to reappear in target after recreating in source: 0 ms
+    Time for upsert to propagate to target bucket:               11 ms
+    Time taken for remove to take effect on target bucket:       6 ms
+    CB Version of Source:     3.1.0-1776-rel-enterprise
+    CB Version of Target:     3.1.0-1776-rel-enterprise
