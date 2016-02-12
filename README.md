@@ -4,13 +4,15 @@ This program was developed using Java 1.8 and [Couchbase Java SDK 2.1.3](http://
 
 Given a source cluster and bucket and a destination cluster and bucket, this program will insert an expiring test document into the source cluster and bucket.
 
-It will then start polling the target bucket.  It will measure the amount of time until the document is available on the target bucket.  Then as a follow-up, it will continue to poll until the document expires and is no longer available.
+It will then start polling the target bucket in a tight loop.  It will measure the amount of time (in milliseconds) until the document is available on the target bucket.  Then as a follow-up, it will continue to poll until the document expires and is no longer available on the target.
 
-After that it re-creates the original document in the source bucket, and does an upsert, and polls to see how long it takes for the change to appear in the target bucket ( by monitoring CAS value ).
+After that, the program re-creates the original document in the source bucket, and does an upsert to the document, and polls to see how long it takes for the change to appear in the target bucket ( by monitoring CAS value ).
 
 Next, the program removes the document from the source bucket and observes how long it takes to be removed from the target bucket.
 
 Finally it outputs all of the measured time values and exits.
+
+The current version now has continuous mode, in which it will start from the top and perform the tests again and again until the program is halted.  There is a boolean with which you can turn continuous mode off, if you wish.
 
 Sample output ( from continuous mode )
 
